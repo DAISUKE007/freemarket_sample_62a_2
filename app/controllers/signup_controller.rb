@@ -89,8 +89,8 @@ class SignupController < ApplicationController
     session[:address_prefecture_id] = user_params[:address_attributes][:prefecture_id]
     session[:address_municipalities] = user_params[:address_attributes][:municipalities]
     session[:address_house_number] = user_params[:address_attributes][:house_number]
-    session[:building_name] = user_params[:address_attributes][:building_name]
-    session[:phone_number] = user_params[:address_attributes][:phone_number]
+    session[:address_building_name] = user_params[:address_attributes][:building_name]
+    session[:address_phone_number] = user_params[:address_attributes][:phone_number]
 
 
     @user = User.new(
@@ -105,9 +105,7 @@ class SignupController < ApplicationController
       postal_code: session[:address_postal_code],
       prefecture_id: session[:address_prefecture_id],
       municipalities: session[:address_municipalities],
-      house_number: session[:address_house_number],
-      building_name: session[:building_name],
-      phone_number: session[:phone_number]
+      house_number: session[:address_house_number]
     )
     render "/signup/step3" unless @address.valid?                     # sessionに対してのバリデーション
   end
@@ -137,8 +135,8 @@ class SignupController < ApplicationController
       prefecture_id: session[:address_prefecture_id],                 # 都道府県
       municipalities: session[:address_municipalities],               # 市区町村
       house_number: session[:address_house_number],                   # 番地
-      building_name: session[:building_name],                         # 建物名
-      phone_number: session[:phone_number]                            # 電話番号 アドレス用
+      building_name: session[:address_building_name],                 # 建物名
+      phone_number: session[:address_phone_number]                    # 電話番号 アドレス用
     )
     # #データベースへの保存
     if @user.save
